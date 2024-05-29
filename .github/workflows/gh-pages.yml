@@ -2,10 +2,15 @@ name: Generate and Deploy to Github Pages
 # touchme
 on:
   push:
-    branches:
-      - master  # Set a branch name to trigger deployment
+    branches: [ "master" ]  # Set a branch name to trigger deployment
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    
 permissions:
   contents: write
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build-and-deploy:
     concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
@@ -22,6 +27,6 @@ jobs:
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         # Filter on branch
-        if: github.ref == 'refs/heads/master'
+        #if: github.ref == 'refs/heads/master'
         with:
           folder: dist # The folder the action should deploy.
